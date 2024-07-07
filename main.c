@@ -31,7 +31,7 @@ stazione* creaStazione(int dist){
 }
 
 
-void maxHeapify(int* heap, int n, int i) //heap è l'array che rappresenta l'heap, n=dimensione heap, i=posiz nodo da correggere
+void maxHeapify(int* heap, int n, int i) // 'heap' è l'array che rappresenta l'heap, n = dimensione heap, i = posizione nodo da correggere
 { 
     int riordina = i;
     int left = 2 * i + 1;
@@ -48,7 +48,7 @@ void maxHeapify(int* heap, int n, int i) //heap è l'array che rappresenta l'hea
         heap[i] = heap[riordina];
         heap[riordina] = temp;
 
-        maxHeapify(heap, n, riordina); //chiamata ricorsiva di maxHeapify sul sottoalbero
+        maxHeapify(heap, n, riordina); // Chiamata ricorsiva di maxHeapify sul sottoalbero
     }
 }
 
@@ -97,8 +97,8 @@ void rimuoviCar(stazione* S, int autonomia)
 
 stazione* inserisciStazione(autostrada bst, int key, int* inserita)
     {
-        stazione* corrente = bst; //puntatore per attraversare il BST
-        stazione* parent = NULL;// mantengo un puntatore al genitore
+        stazione* corrente = bst; // puntatore per attraversare il BST
+        stazione* parent = NULL; // mantengo un puntatore al genitore
  
         while (corrente != NULL && corrente->dist!=key) 
         {
@@ -110,15 +110,15 @@ stazione* inserisciStazione(autostrada bst, int key, int* inserita)
         }
         if(corrente==NULL)
         { //sono arrivato con corrente su NULL: creo la nuovaStazione e la attacco al precedente:
-            stazione* nuovaStazione= creaStazione(key);//creao la Stazione da inserire
+            stazione* nuovaStazione= creaStazione(key); // creo la Stazione da inserire
         
             if (key < parent->dist){
                 parent->left = nuovaStazione;
                 printf("aggiunta\n");
                 *inserita=1;
-                return parent->left; //ritorno il puntatore alla stazione inserita
+                return parent->left; // ritorno il puntatore alla stazione inserita
             }
-            // else assign the new node its right child
+            // altrimenti assegno il nuovo nodo come figlio destro
             if (key > parent->dist){
                 parent->right = nuovaStazione;
                 printf("aggiunta\n");
@@ -129,7 +129,7 @@ stazione* inserisciStazione(autostrada bst, int key, int* inserita)
             return parent;
         }
         
-        //finisco qui nel caso in cui abbia corrente->dist==distanza (cioè la stazione è già presente)
+        // Finisco qui nel caso in cui abbia corrente->dist==distanza (cioè la stazione è già presente)
         printf("non aggiunta\n");
         return NULL;
           
@@ -206,7 +206,7 @@ stazione* demolisciStazione(autostrada A, int daEliminare)
         for(int i=0; i<successore->numCar; i++){
             current->parcoVeicoli[i]=successore->parcoVeicoli[i];
         }
-        current->numCar=successore->numCar; //DEVI COPIARE ALTRE INFO DI CURRENT IN SUCCESSORE??
+        current->numCar=successore->numCar;
         current->right = demolisciStazione(current->right, successore->dist); 
     }
 
@@ -245,7 +245,7 @@ void rottamaAuto(int distanza,int autono, autostrada A)
     }
 }
 
-//Visita in Oridne del BST per ricavare l'ARRAY ORDINATO di nodiLista necessario per effettuare la Visita
+// Visita in Ordine del BST per ricavare l'Array ORDINATO di nodiLista necessario per effettuare la Visita
 void creaArrayVisita(autostrada A,struct nodoVisita* arrayDaRiempire, int partenzaDist, int arrivoDist, int* indice)
 {   
     if (A == NULL) {
@@ -255,7 +255,7 @@ void creaArrayVisita(autostrada A,struct nodoVisita* arrayDaRiempire, int parten
     // Visita il sottoalbero sinistro
     creaArrayVisita(A->left, arrayDaRiempire, partenzaDist, arrivoDist, indice);
 
-    if(A->dist>=partenzaDist && A->dist<=arrivoDist){ // && A->numCar!=0 && A->parcoVeicoli[0]!=0){ //NON AGGIUNGO PROPRIO le STAZIONI che NON mi servono per la visita (0 auto OR autonomiaMax=0)
+    if(A->dist>=partenzaDist && A->dist<=arrivoDist){ //NON aggiungo proprio le stazioni che NON mi servono per la visita (0 auto OR autonomiaMax=0)
         // Inserisci il valore del nodo corrente nell'array
         
         (arrayDaRiempire[(*indice)]).dist = A->dist;
@@ -275,22 +275,22 @@ void creaArrayVisita(autostrada A,struct nodoVisita* arrayDaRiempire, int parten
     creaArrayVisita(A->right, arrayDaRiempire, partenzaDist, arrivoDist, indice);
 }
 
-//in PianificaPercorso chiamo la funzione che mi riempie l'array su cui fare la visita
-//ALLA FINE DEALLOCA L'ARRAY VISITA!!
+//in PianificaPercorso chiamo la funzione che riempie l'array su cui fare poi la visita
+//ALLA FINE DEALLOCA L'ARRAY VISITA!
 void pianificaPercorso(autostrada A, int partenzaDist, int arrivoDist, int vertici)
 {
     int i=0;
-    struct nodoVisita* arrayVisita= (nodoVisita*)malloc(vertici * sizeof(nodoVisita)); //alloco array di elementi 'struct nodoLista'
-    creaArrayVisita(A, arrayVisita, partenzaDist, arrivoDist, &i); //mi ritorna l'array di nodiVisita ORDINATO
+    struct nodoVisita* arrayVisita= (nodoVisita*)malloc(vertici * sizeof(nodoVisita)); // alloco array di elementi 'struct nodoVisita'
+    creaArrayVisita(A, arrayVisita, partenzaDist, arrivoDist, &i); // ritorna l'array di nodiVisita ORDINATO
     int arrivato=0;
     
     //VISITA
-    struct nodoVisita* currentNode= &(arrayVisita[0]); //con questo scorro le celle dall'inizio dell'array
-    struct nodoVisita* confrontoNode= &(arrayVisita[1]); //con questo considero i nodi 'adiacenti' a currentNode
+    struct nodoVisita* currentNode= &(arrayVisita[0]); // scorro le celle dall'inizio dell'array
+    struct nodoVisita* confrontoNode= &(arrayVisita[1]); // considero i nodi 'adiacenti' a currentNode
     currentNode->tappa=1;
     confrontoNode->tappa=2;
     //CASI PARTICOLARI:
-    if(currentNode->maxDist==currentNode->dist||confrontoNode->dist>currentNode->maxDist){ //cioè autonomia + alta è =0 oppure non ha neanche 1 adiacente
+    if(currentNode->maxDist==currentNode->dist||confrontoNode->dist>currentNode->maxDist){ // cioè se autonomia più alta è =0 oppure non ha neanche un adiacente
         printf("nessun percorso\n");
         free(arrayVisita);
         return;
@@ -308,7 +308,7 @@ void pianificaPercorso(autostrada A, int partenzaDist, int arrivoDist, int verti
             confrontoNode++; 
             }
         }
-        if(confrontoNode->dist==arrivoDist){ //se il nodo 'confronto' è= ARRIVO, esiste un percorso
+        if(confrontoNode->dist==arrivoDist){ //se il nodo 'confronto' è = ARRIVO, esiste un percorso
                 arrivato=1;
             while(arrivoDist>currentNode->maxDist){
                 currentNode++; //così arrivo correttamente sul PRIMO nodo Parent di Arrivo
@@ -394,7 +394,7 @@ void creaArrayVisitaInverso(autostrada A, struct nodoVisita* arrayDaRiempire, in
  void pianificaPercorsoInverso(autostrada A, int partenzaDist, int arrivoDist, int vertici)
  {
     int i=0;
-    struct nodoVisita* arrayVisita= (nodoVisita*)malloc(vertici * sizeof(nodoVisita)); // alloco array di elementi struct nodoLista
+    struct nodoVisita* arrayVisita= (nodoVisita*)malloc(vertici * sizeof(nodoVisita)); // alloco array di elementi struct nodoVisita
     creaArrayVisitaInverso(A, arrayVisita, partenzaDist, arrivoDist, &i); //mi ritorna l'array di nodiVisita ORDINATO
     int arrivato=0;
     
@@ -451,14 +451,14 @@ void creaArrayVisitaInverso(autostrada A, struct nodoVisita* arrayDaRiempire, in
     } 
     if(arrivato==1){
         //Alloco array INVERSO per stampa e STAMPO
-        //'tappa' CONTA QUANTO è LUNGO IL PERCORSO
+        //'tappa' conta quanto è lungo il percorso
         int* stampa= (int*)malloc((Parent->tappa)*sizeof(int)); 
         int p=0;
         stampa[p]= arrivoDist;
         p++;
         stampa[p]= Parent->dist; //current, uscito dal while, punta al Parent di Arrivo
         p++;
-        int cerca=(Parent)->parent; //primo valore da cercare: il parent del Parent di Arrivo
+        int cerca=(Parent)->parent; //primo valore da cercare: il Parent del Parent di Arrivo
         Parent--;
     
         while(cerca!=partenzaDist)
@@ -488,7 +488,7 @@ void creaArrayVisitaInverso(autostrada A, struct nodoVisita* arrayDaRiempire, in
 int main () {
 
     
-    char istruzione[50]; //dove memorizzare la prima parola che leggo sulla riga
+    char istruzione[50]; // memorizza la prima parola che leggo sulla riga
     stazione* staz=NULL;
     int numeroAuto;
     int distanza;
@@ -531,7 +531,7 @@ int main () {
         if (strcmp (istruzione, "demolisci-stazione") == 0 ) {
             if(scanf("%d", &distanza)==1){
                 if(A->dist==distanza){ //se la stazione da demolire è la radice del BST, allora salverò il puntatore alla nuova radice del BST in A
-                    staz =demolisciStazione(A,distanza); //in demolisci stazione DEALLOCA il nodo
+                    staz =demolisciStazione(A,distanza); //in 'demolisci-stazione' DEALLOCA il nodo
                     A=staz;
                     printf("demolita\n");
                     v--;
@@ -548,7 +548,7 @@ int main () {
         }
         if (strcmp (istruzione, "aggiungi-auto") == 0 ) {
             if((scanf( "%d", &distanza))==1 && (scanf( "%d", &autono))==1){
-                if(autono>0){ //quella con autonomia 0 non mi serve per il pianifica percorso //serve anche un controllo nel pianifica percorso
+                if(autono>0){ //quella con autonomia 0 non mi serve per il pianifica percorso (serve anche un controllo nel pianifica percorso)
                 aggiungiAuto (distanza,autono, A);
                 } 
             }

@@ -8,7 +8,7 @@
 
 ## Obiettivi e Specifiche
 
-Qui puoi scaricare la [specifica 2022-2023](documents/Specifica_2022_2023.pdf).
+Qui trovi la [specifica 2022-2023](documents/Specifica_2022_2023.pdf).
 
 L'obiettivo del progetto è pianificare il percorso con il minor numero di tappe tra due stazioni di servizio su un'autostrada, rispettando le seguenti condizioni:
 
@@ -20,18 +20,18 @@ L'obiettivo del progetto è pianificare il percorso con il minor numero di tappe
 
 ## Scelte Progettuali
 
-PIANIFICA PERCORSO:
+**Funzione Pianifica-Percorso:**
 - Effettuo una visita in ordine dell'autostrada (BST), incrementando un contatore 'i'
   finché non arrivo sulla stazione da cui deve partire la visita.
-- Creo un nuovo array 'arrayVisita' di dimensione fissa pari al n° di vertici (valore passato in input alla funzione)
-  composto da elementi 'struct nodoVisita { int dist; int Parent; int maxDist;}'.
+- Creo un nuovo array 'arrayVisita' di dimensione fissa pari al numero di vertici (valore passato in input alla funzione)
+  composto da elementi 'struct nodoVisita { int dist; int parent; int maxDist;}'.
 - Per ogni stazione che incontro durante la visita del BST a partire dalla stazione di PARTENZA,
   riempio una nuova cella dell'Array 'arrayVisita' associando a un nuovo nodoVisita la dist= dist della stazione
   su cui si trova la visita, parent=-1 e maxDist='dist' della stazione + parcoVeicoli[0] della stazione che sto visitando.
-  Così procedo con la visita in ordine, inserendo i nodiLista finché non trovo una stazione con 'dist' > di ARRIVO (qui mi fermo: le stazioni che voglio prendere in considerazione sono già nell'array)
+  Così procedo con la visita in ordine, inserendo i nodiVisita finché non trovo una stazione con 'dist' > di ARRIVO (qui mi fermo: le stazioni che voglio prendere in considerazione sono già nell'array)
 - Eseguo ora la visita 'in ampiezza' del nuovo array di nodiVisita per trovare il Percorso Minimo, salvarlo e stamparlo.
 
-PIANIFICA PERCORSO INVERSO:
+**Funzione Pianifica-Percorso-Inverso:**
 - Effettuo una visita in post-order del BST per ottenere nell'array i nodi riordinati dal più grande (PARTENZA) al più piccolo (ARRIVO).
 - Necessario il campo 'TAPPA' in ogni struct nodoVisita per eseguire correttamente la visita in ampiezza delle 'struct nodoVisita'.
 - Inizio da PARTENZA. Il confronto deve sempre partire dal primo nodo con il valore di 'TAPPA' diverso dal nodo che sto visitando (CURRENT).
