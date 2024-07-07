@@ -8,37 +8,43 @@
 
 ## Obiettivi e Specifiche
 
-L'obiettivo di questo progetto è stato sviluppare un algoritmo efficiente per risolvere il problema della pianificazione di un percorso tra stazioni di servizio su un'autostrada, utilizzando tecniche di programmazione avanzate studiate durante il corso. Le specifiche del progetto includevano:
+Qui puoi scaricare la [specifica 2022-2023](documents/Specifica_2022_2023.pdf).
 
-Implementazione di un algoritmo con complessità temporale O(n log n).
-Utilizzo di strutture dati appropriate per ottimizzare le prestazioni.
-Scrittura di test unitari per verificare la correttezza dell'algoritmo.
-Documentazione del codice e delle scelte progettuali.
+L'obiettivo del progetto è pianificare il percorso con il minor numero di tappe tra due stazioni di servizio su un'autostrada, rispettando le seguenti condizioni:
+
+- Ogni stazione ha una distanza unica dall'inizio dell'autostrada.
+- Ogni stazione dispone di un massimo di 512 veicoli elettrici con autonomie variabili.
+- Il viaggio inizia in una stazione e termina in un'altra, passando per stazioni intermedie senza mai tornare indietro.
+- Il conducente noleggia un'auto nuova in ogni stazione visitata e può raggiungere solo stazioni entro l'autonomia del veicolo noleggiato.
+- Se esistono più percorsi con lo stesso numero minimo di tappe, si sceglie il percorso con le tappe più vicine all'inizio dell'autostrada.
 
 ## Scelte Progettuali
 
-### Strutture Dati Utilizzate
+PIANIFICA PERCORSO:
+- Effettuo una visita in ordine dell'autostrada (BST), incrementando un contatore 'i'
+  finché non arrivo sulla stazione da cui deve partire la visita.
+- Creo un nuovo array 'arrayVisita' di dimensione fissa pari al n° di vertici (valore passato in input alla funzione)
+  composto da elementi 'struct nodoVisita { int dist; int Parent; int maxDist;}'.
+- Per ogni stazione che incontro durante la visita del BST a partire dalla stazione di PARTENZA,
+  riempio una nuova cella dell'Array 'arrayVisita' associando a un nuovo nodoVisita la dist= dist della stazione
+  su cui si trova la visita, parent=-1 e maxDist='dist' della stazione + parcoVeicoli[0] della stazione che sto visitando.
+  Così procedo con la visita in ordine, inserendo i nodiLista finché non trovo una stazione con 'dist' > di ARRIVO (qui mi fermo: le stazioni che voglio prendere in considerazione sono già nell'array)
+- Eseguo ora la visita 'in ampiezza' del nuovo array di nodiVisita per trovare il Percorso Minimo, salvarlo e stamparlo.
 
-Per risolvere il problema della pianificazione del percorso, ho scelto di utilizzare una struttura dati a grafo, dove i nodi rappresentano le stazioni di servizio e gli archi rappresentano i percorsi possibili tra di esse. Ho usato un heap binario per gestire le operazioni di inserimento e estrazione dei nodi, garantendo una complessità temporale efficiente per la ricerca del percorso minimo.
+PIANIFICA PERCORSO INVERSO:
+- Effettuo una visita in post-order del BST per ottenere nell'array i nodi riordinati dal più grande (PARTENZA) al più piccolo (ARRIVO).
+- Necessario il campo 'TAPPA' in ogni struct nodoVisita per eseguire correttamente la visita in ampiezza delle 'struct nodoVisita'.
+- Inizio da PARTENZA. Il confronto deve sempre partire dal primo nodo con il valore di 'TAPPA' diverso dal nodo che sto visitando (CURRENT).
+  Se il valore di TAPPA è diverso dal mio, allora sostituisco 'parent' e metto me stesso come parent,
+  perchè vengo DOPO rispetto al nodo prima settato come 'parent' e devo qui prediligere i PARENT più vicini all'origine
+  (e questa volta i valori sono visitati in ordine DECRESCENTE).
 
-### Algoritmi Implementati
-
-Ho implementato l'algoritmo di Dijkstra per trovare il percorso con il minor numero di tappe tra due stazioni. Questo algoritmo è stato scelto perché è in grado di gestire grafi con pesi non negativi e di trovare il percorso più breve in termini di numero di nodi attraversati. Inoltre, ho adattato l'algoritmo per gestire il caso in cui ci siano più percorsi con lo stesso numero minimo di tappe, scegliendo il percorso che predilige le tappe con distanza più breve dall'inizio dell'autostrada.
-
-### Ottimizzazioni
-
-Per ridurre l'overhead di memoria, ho implementato una versione dell'algoritmo di Dijkstra che utilizza un heap binario, riducendo il tempo di inserimento ed estrazione dei nodi. Ho anche ottimizzato l'algoritmo per terminare non appena viene trovato il percorso ottimale, evitando di esplorare ulteriormente il grafo.
 
 ### Test e Verifica
 
 Test forniti: 
-
+[archivio_test_aperti_1.zip.html](documents%2FTests%2Farchivio_test_aperti_1.zip.html)]
+[archivio_test_aperti_2.zip.html](documents%2FTests%2Farchivio_test_aperti_2.zip.html)
+[open_extra_gen.zip.html](documents%2FTests%2Fopen_extra_gen.zip.html)
 ---
 
-### Come Eseguire il Progetto
-
-```sh
-git clone https://github.com/username/repository.git
-cd repository
-make
-./run_project
