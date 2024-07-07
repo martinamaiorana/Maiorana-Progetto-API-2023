@@ -45,10 +45,11 @@ L'obiettivo del progetto è pianificare il percorso con il minor numero di tappe
 
 ### Test e Verifica
 
-Test forniti: 
-[archivio_test_aperti_1.zip.html](documents%2FTests%2Farchivio_test_aperti_1.zip.html).
-[archivio_test_aperti_2.zip.html](documents%2FTests%2Farchivio_test_aperti_2.zip.html).
-[open_extra_gen.zip.html](documents%2FTests%2Fopen_extra_gen.zip.html).
+Test forniti:  
+[archivio_test_aperti_1.zip.html](documents%2FTests%2Farchivio_test_aperti_1.zip.html)  
+[archivio_test_aperti_2.zip.html](documents%2FTests%2Farchivio_test_aperti_2.zip.html)  
+[open_extra_gen.zip.html](documents%2FTests%2Fopen_extra_gen.zip.html)
+
 
 ---
 
