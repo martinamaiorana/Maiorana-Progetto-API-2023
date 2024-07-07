@@ -1,10 +1,13 @@
 # Prova Finale di Algoritmi e Principi dell'Informatica A.A. 2022-2023
 
+
 **Docente:** Matteo Pradella
 
 **Valutazione:** 30L/30
 
+
 ---
+
 
 ## Obiettivi e Specifiche
 
@@ -24,11 +27,11 @@ L'obiettivo del progetto è pianificare il percorso con il minor numero di tappe
 - Effettuo una visita in ordine dell'autostrada (BST), incrementando un contatore 'i'
   finché non arrivo sulla stazione da cui deve partire la visita.
 - Creo un nuovo array 'arrayVisita' di dimensione fissa pari al numero di vertici (valore passato in input alla funzione)
-  composto da elementi 'struct nodoVisita { int dist; int parent; int maxDist;}'.
+  composto da elementi 'struct nodoVisita { int dist; int parent; int maxDist; }'.
 - Per ogni stazione che incontro durante la visita del BST a partire dalla stazione di PARTENZA,
   riempio una nuova cella dell'Array 'arrayVisita' associando a un nuovo nodoVisita la dist= dist della stazione
   su cui si trova la visita, parent=-1 e maxDist='dist' della stazione + parcoVeicoli[0] della stazione che sto visitando.
-  Così procedo con la visita in ordine, inserendo i nodiVisita finché non trovo una stazione con 'dist' > di ARRIVO (qui mi fermo: le stazioni che voglio prendere in considerazione sono già nell'array)
+  Così procedo con la visita in ordine, inserendo i nodiVisita finché non trovo una stazione con 'dist' > ARRIVO (qui mi fermo: le stazioni che voglio prendere in considerazione sono già nell'array)
 - Eseguo ora la visita 'in ampiezza' del nuovo array di nodiVisita per trovare il Percorso Minimo, salvarlo e stamparlo.
 
 **Funzione Pianifica-Percorso-Inverso:**
@@ -43,8 +46,9 @@ L'obiettivo del progetto è pianificare il percorso con il minor numero di tappe
 ### Test e Verifica
 
 Test forniti: 
-[archivio_test_aperti_1.zip.html](documents%2FTests%2Farchivio_test_aperti_1.zip.html)]
-[archivio_test_aperti_2.zip.html](documents%2FTests%2Farchivio_test_aperti_2.zip.html)
-[open_extra_gen.zip.html](documents%2FTests%2Fopen_extra_gen.zip.html)
+[archivio_test_aperti_1.zip.html](documents%2FTests%2Farchivio_test_aperti_1.zip.html).
+[archivio_test_aperti_2.zip.html](documents%2FTests%2Farchivio_test_aperti_2.zip.html).
+[open_extra_gen.zip.html](documents%2FTests%2Fopen_extra_gen.zip.html).
+
 ---
 
